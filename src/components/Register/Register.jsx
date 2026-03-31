@@ -30,10 +30,13 @@ function Register ({ loadUser, onRouteChange }) {
 		})
 			.then(response => response.json())
 			.then(user => {
-				if (user.id) {
+				if (!user || !user.id) {
+			    console.error('Register failed:', user);
+			    alert('Unable to register');
+			    return;
+			  }
 					loadUser(user);
 					onRouteChange('home');
-				}
 			})
 			.catch(console.log)
 	}

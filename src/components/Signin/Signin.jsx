@@ -26,10 +26,14 @@ function Signin ({ loadUser, onRouteChange }) {
 		})
 			.then(response => response.json())
 			.then(user => {
-				if (user.id) {
+				if (!user || !user.id) {
+			    console.error('Signin failed:', user);
+			    alert('Wrong email or password');
+			    return;
+			  }
 					loadUser(user);
 					onRouteChange('home');
-				}
+				
 			})
 			.catch(console.log);
 	}

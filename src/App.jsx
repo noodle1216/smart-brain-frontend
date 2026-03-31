@@ -121,6 +121,12 @@ const calculateFaceLocation = (data) => {
       .then(response => {
         console.log('API response', response);
 
+        if (!Array.isArray(response)) {
+          alert('Face detection failed. Check backend API.');
+          console.error('Invalid API response:', response);
+          return;
+        }
+        
         if (response && response.length) {
           fetch(`${API_URL}/image`, {
             method: 'put',
